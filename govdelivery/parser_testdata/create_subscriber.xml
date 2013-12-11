@@ -1,0 +1,5 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<subscriber>
+  <to-param>SUBSCRIBER_ID</to-param>
+  <link rel="self" href="/api/account/ACCOUNT_CODE/subscribers/SUBSCRIBER_ID" />
+</subscriber>
