@@ -1,0 +1,20 @@
+<responses type="array">
+ <!-- Subscriber saw this question and did not answer it -->
+ <response>
+   <question-answer-text nil="true"></question-answer-text>
+   <question-id>MTAwNDk=</question-id>
+   <answer-id nil="true"></answer-id>
+ </response>
+ 
+ <!-- subscriber saw question MTAxMjQ= and answered with two responses -->
+ <response>
+   <question-answer-text>Bahrain</question-answer-text>
+   <question-id>MTAxMjQ=</question-id>
+   <answer-id>MTALF5DE=</answer-id>
+ </response>
+ <response>
+   <question-answer-text>Madagascar</question-answer-text>
+   <question-id>MTAxMjQ=</question-id>
+   <answer-id>MTA0LLDI=</answer-id>
+ </response>
+</responses>

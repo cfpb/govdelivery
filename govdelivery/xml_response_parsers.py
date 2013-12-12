@@ -16,3 +16,27 @@ def category_xml_as_dict(unparsed_xml, only_listed=False):
 
 def visible_category_xml_as_dict(unparsed_xml):
     return category_xml_as_dict(unparsed_xml, only_listed=True)
+
+
+def subscriber_responses_as_list_of_dicts(unparsed_xml):
+    root = ET.fromstring(unparsed_xml)
+    responses = []
+    for response_tag in root.findall('response'):
+        answer_id_tag = response_tag.find('answer-id')
+
+        question_id = response_tag.find('question-id').text
+        
+        answer_id = answer_id_tag.text
+        answer_id_is_null = ('nil' in answer_id_tag.attrib and answer_id_tag.attrib['nil'] == 'true')
+        
+        answer_text = response_tag.find('question-answer-text').text
+
+        
+        response_dict = {'question_id' : question_id,
+                         'answer_id': answer_id,
+                          'answer_text' : answer_text,
+                          'answer_id_is_null': answer_id_is_null}
+
+        responses.append(response_dict)
+
+    return responses
