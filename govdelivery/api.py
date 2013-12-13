@@ -107,10 +107,15 @@ class GovDelivery(object):
     def get_subscriber_topics(self, email_address):
         subscriber_id = base64.b64encode(email_address)
         path = self.translate_path('/api/account/$account_code/subscribers/$subscriber_id/topics.xml', subscriber_id=subscriber_id)
-        return self.call_api(path)
+        return self.call_api(path, response_parser=xml_response_parsers.subscriber_topics_as_list)
 
-    def set_subscriber_topics(self, email_address, topic_codes):
+    def set_subscriber_topics(self, email_address, topic_codes, insert=False):
         subscriber_id = base64.b64encode(email_address)
+        topic_code_set = set(topic_codes)
+        if insert:
+            existing_topic_codes = self.get_subscriber_topics(email_address)
+            topic_code_set.update(existing_topic_codes)
+
         path = self.translate_path('/api/account/$account_code/subscribers/$subscriber_id/topics.xml', subscriber_id=subscriber_id)
-        payload = xml_payloads.set_subscriber_topics(topic_codes)
+        payload = xml_payloads.set_subscriber_topics(topic_code_set)
         return self.call_api(path, "put", payload)

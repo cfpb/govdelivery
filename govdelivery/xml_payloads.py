@@ -50,6 +50,7 @@ def set_subscriber_topics(codes, send_notifications=False):
                       """ % code
 
     xml_template = """<subscriber>
+    <send-notifications type='boolean'>$send_notifications</send-notifications>
     <topics type='array'>
         $topics_xml
     </topics>

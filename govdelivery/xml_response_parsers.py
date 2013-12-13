@@ -1,7 +1,7 @@
 import xml.etree.ElementTree as ET
 
 
-def category_xml_as_dict(unparsed_xml, only_listed=False):
+def topic_xml_as_dict(unparsed_xml, only_listed=False):
     root = ET.fromstring(unparsed_xml)
     code_map = {}
     for topic_tag in root.findall('topic'):
@@ -14,9 +14,17 @@ def category_xml_as_dict(unparsed_xml, only_listed=False):
     return code_map
 
 
+def subscriber_topics_as_list(unparsed_xml):
+    root = ET.fromstring(unparsed_xml)
+    codes = []
+    for topic in root.findall('topic'):
+        codes.append(topic.find('to-param').text)
+
+    return codes
+
+
 def visible_category_xml_as_dict(unparsed_xml):
     return category_xml_as_dict(unparsed_xml, only_listed=True)
-
 
 def subscriber_responses_as_list_of_dicts(unparsed_xml):
     root = ET.fromstring(unparsed_xml)
