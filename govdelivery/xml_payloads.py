@@ -39,7 +39,7 @@ def set_subscriber_categories(codes, send_notifications=False):
     return template.substitute(locals())
 
 
-def set_subscriber_topics(codes, send_notifications=False):
+def set_subscriber_topics(codes, email, send_notifications=False):
     send_notifications = str(send_notifications).lower()
 
     topics_xml = ""
@@ -50,6 +50,7 @@ def set_subscriber_topics(codes, send_notifications=False):
                       """ % code
 
     xml_template = """<subscriber>
+    <email>$email</email>
     <send-notifications type='boolean'>$send_notifications</send-notifications>
     <topics type='array'>
         $topics_xml
