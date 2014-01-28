@@ -60,3 +60,19 @@ def set_subscriber_topics(codes, email, send_notifications=False):
     template = Template(xml_template)
 
     return template.substitute(locals())
+
+
+def free_response_to_question(question_id, answer_text):
+
+    xml_response = """
+<responses type="array">
+  <response>
+    <question-answer-text>$answer_text</question-answer-text>
+    <question-id>$question_id</question-id>
+    <answer-id nil="true"></answer-id>
+  </response>
+</responses>
+"""
+
+    template = Template(xml_response)
+    return template.substitute(locals())
