@@ -1,7 +1,10 @@
 import os
 import base64
 import requests
-import urlparse
+try:
+    import urlparse
+except ImportError:
+    import urllib.parse as urlparse
 from string import Template
 
 from . import xml_payloads
