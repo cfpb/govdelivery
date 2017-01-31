@@ -4,7 +4,7 @@ from setuptools import setup, find_packages
 
 setup(
     name='govdelivery',
-    version=__import__('govdelivery').__version__,
+    version_format='{tag}.dev{commitcount}+{gitsha}', 
     author='CFPB',
     author_email='tech@cfpb.gov',
     packages=['govdelivery'],
@@ -19,4 +19,5 @@ setup(
         'Operating System :: OS Independent',
     ],
     zip_safe=False,
+    setup_requires=['setuptools-git-version'],
 )
