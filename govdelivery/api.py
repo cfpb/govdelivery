@@ -102,10 +102,10 @@ class GovDelivery(object):
         path = self.translate_path('/api/account/$account_code/subscribers/$subscriber_id/categories.xml', subscriber_id=subscriber_id)
         return self.call_api(path)
 
-    def set_subscriber_categories(self, contact_details, category_codes):
+    def set_subscriber_categories(self, contact_details, category_codes, send_notifications=False):
         subscriber_id = base64.b64encode(contact_details)
         path = self.translate_path('/api/account/$account_code/subscribers/$subscriber_id/categories.xml', subscriber_id=subscriber_id)
-        payload = xml_payloads.set_subscriber_categories(category_codes)
+        payload = xml_payloads.set_subscriber_categories(category_codes, send_notifications)
         return self.call_api(path, "put", payload)
 
     def get_subscriber_topics(self, contact_details):
@@ -113,12 +113,11 @@ class GovDelivery(object):
         path = self.translate_path('/api/account/$account_code/subscribers/$subscriber_id/topics.xml', subscriber_id=subscriber_id)
         return self.call_api(path, response_parser=xml_response_parsers.subscriber_topics_as_list)
 
-    def set_subscriber_topics(self, contact_details, contact_method="email", topic_codes, insert=False):
-        subscriber_id = base64.b64encode(contact_details)
+    def set_subscriber_topics(self, contact_details, topic_codes, contact_method="email", send_notifications=False):
         topic_code_set = set(topic_codes)
 
         path = self.translate_path('/api/account/$account_code/subscriptions.xml')
-        payload = xml_payloads.set_subscriber_topics(topic_code_set, contact_details, contact_method)
+        payload = xml_payloads.set_subscriber_topics(topic_code_set, contact_details, contact_method, send_notifications)
         return self.call_api(path, "post", payload)
 
     def set_subscriber_answers_to_question(self, contact_details, question_id, answer_text):
