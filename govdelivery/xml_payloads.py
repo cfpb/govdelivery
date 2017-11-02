@@ -1,13 +1,30 @@
+import re
+
 from string import Template
 
 
-def create_email_subscriber(email_address,
-                            send_notifications=False,
-                            digest_for=0):
+def format_phone(phone):
+    # if phone starts with + or 1, strip those characters
+    phone = phone.lstrip('+1')
+    # strip all other non-digit characters
+    phone = re.sub('\D', '', phone)
+
+    return phone
+
+
+def create_subscriber(contact_details,
+                      contact_method,
+                      send_notifications=False,
+                      digest_for=0):
 
     send_notifications = str(send_notifications).lower()
+    country_code = ''
+    if contact_method == 'phone':
+        contact_details = format_phone(contact_details)
+        country_code = '<country-code>#</country-code>'
     subscriber_template = """<subscriber>
-    <email>$email_address</email>
+    <$contact_method>$contact_details</$contact_method>
+    $country_code
     <send-notifications type='boolean'>$send_notifications</send-notifications>
     <digest-for>$digest_for</digest-for>
   </subscriber>"""
@@ -39,7 +56,10 @@ def set_subscriber_categories(codes, send_notifications=False):
     return template.substitute(locals())
 
 
-def set_subscriber_topics(codes, email, send_notifications=False):
+def set_subscriber_topics(codes,
+                          contact_details,
+                          contact_method,
+                          send_notifications=False):
     send_notifications = str(send_notifications).lower()
 
     topics_xml = ""
@@ -50,7 +70,7 @@ def set_subscriber_topics(codes, email, send_notifications=False):
                       """ % code
 
     xml_template = """<subscriber>
-    <email>$email</email>
+    <$contact_method>$contact_details</$contact_method>
     <send-notifications type='boolean'>$send_notifications</send-notifications>
     <topics type='array'>
         $topics_xml
