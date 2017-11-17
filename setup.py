@@ -11,9 +11,10 @@ setup(
     description=u'python module for interacting with the govdelivery api',
     long_description=open('README.rst').read(),
     url='https://github.com/cfpb/govdelivery',
-    license='CC0',
     classifiers=[
         'Intended Audience :: Developers',
+        'License :: CC0 1.0 Universal (CC0 1.0) Public Domain Dedication',
+        'License :: Public Domain',
         'Programming Language :: Python',
         'Programming Language :: Python :: 2.7',
         'Development Status :: 4 - Beta',
