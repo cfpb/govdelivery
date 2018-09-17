@@ -147,8 +147,8 @@ class GovDelivery(object):
                 '/account/$account_code'
                 '/subscribers/$subscriber_id'
                 '/questions/$question_id_encoded'
-                '/responses.xml',
-            )
+                '/responses.xml'
+            ),
             subscriber_id=subscriber_id,
             question_id_encoded=question_id_encoded,
             answer_id_encoded=answer_id_encoded
