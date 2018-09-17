@@ -142,11 +142,13 @@ class GovDelivery(object):
         answer_id_encoded = base64.b64encode(answer_id)
 
         path = self.translate_path(
-            '/api'
-            '/account/$account_code'
-            '/subscribers/$subscriber_id'
-            '/questions/$question_id_encoded'
-            '/responses.xml',
+            (
+                '/api'
+                '/account/$account_code'
+                '/subscribers/$subscriber_id'
+                '/questions/$question_id_encoded'
+                '/responses.xml',
+            )
             subscriber_id=subscriber_id,
             question_id_encoded=question_id_encoded,
             answer_id_encoded=answer_id_encoded
