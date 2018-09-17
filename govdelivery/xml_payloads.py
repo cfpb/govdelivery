@@ -96,3 +96,18 @@ def free_response_to_question(question_id, answer_text):
 
     template = Template(xml_response)
     return template.substitute(locals())
+
+
+def select_response_to_question(question_id, answer_id):
+
+    xml_response = """
+<responses type="array">
+  <response>
+    <question-id>$question_id</question-id>
+    <answer-id>$answer_id</answer-id>
+  </response>
+</responses>
+"""
+
+    template = Template(xml_response)
+    return template.substitute(locals())

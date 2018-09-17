@@ -130,3 +130,29 @@ class GovDelivery(object):
 
         payload = xml_payloads.free_response_to_question(question_id_encoded, answer_text)
         return self.call_api(path, "put", payload)
+
+    set_subscriber_answer_to_free_response_question = set_subscriber_answers_to_question
+
+    def set_subscriber_answer_to_select_question(
+        self,
+        contact_details,
+        question_id,
+        answer_id
+    ):
+        subscriber_id = base64.b64encode(contact_details)
+        question_id_encoded = base64.b64encode(question_id)
+        answer_id_encoded = base64.b64encode(answer_id)
+
+        path = self.translate_path(
+            '/api/account/$account_code/subscribers/$subscriber_id/questions/'
+            '$question_id_encoded/responses.xml',
+            subscriber_id=subscriber_id,
+            question_id_encoded=question_id_encoded,
+            answer_id_encoded=answer_id_encoded
+        )
+
+        payload = xml_payloads.select_response_to_question(
+            question_id_encoded,
+            answer_id_encoded
+        )
+        return self.call_api(path, "put", payload)
