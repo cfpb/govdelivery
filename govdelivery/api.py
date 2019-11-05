@@ -7,8 +7,8 @@ except ImportError:
     import urllib.parse as urlparse
 from string import Template
 
-from . import xml_payloads
-from . import xml_response_parsers
+import xml_payloads
+import xml_response_parsers
 
 
 def authenticated_session(username=None, password=None):

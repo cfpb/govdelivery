@@ -2,7 +2,7 @@ import os
 import unittest
 import xml.etree.ElementTree as ET
 
-from . import api
+from govdelivery import api
 
 dummy_username = "foo"
 dummy_password = "bar"
