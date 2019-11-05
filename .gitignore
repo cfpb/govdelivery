@@ -2,4 +2,8 @@
 *.log
 *.pot
 *.pyc
+__pycache__/
 local_settings.py
+.eggs/
+*.egg-info/
+.python-version

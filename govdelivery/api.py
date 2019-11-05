@@ -7,8 +7,16 @@ except ImportError:
     import urllib.parse as urlparse
 from string import Template
 
-import xml_payloads
-import xml_response_parsers
+from govdelivery import xml_payloads
+from govdelivery import xml_response_parsers
+
+
+def get_full_url_to_call(path, base_url=None):
+    base_url = base_url or os.environ.get(
+        'GOVDELIVERY_BASE_URL',
+        'https://api.govdelivery.com'
+    )
+    return urlparse.urljoin(base_url, path)
 
 
 def authenticated_session(username=None, password=None):
@@ -30,9 +38,8 @@ def authenticated_session(username=None, password=None):
     return session
 
 
-def authenticated_api_call(path, method,
-                           payload=None,
-                           session=None, base_url=None):
+def authenticated_api_call(path, method, payload=None, session=None,
+                           base_url=None):
     """
     makes an authenticated call to the govdelivery API
     using the provided path, method, payload, and request.Session
@@ -40,16 +47,10 @@ def authenticated_api_call(path, method,
     Returns a request.Response
     """
 
-    base_url = base_url or os.environ.get(
-        'GOVDELIVERY_BASE_URL',
-        'https://api.govdelivery.com')
-
-    url_to_call = urlparse.urljoin(
-        base_url,
-        path)
+    url_to_call = get_full_url_to_call(path, base_url)
 
     session = session or authenticated_session()
-    if method.lower() in ['post','put']:
+    if method.lower() in ['post', 'put']:
         session.headers['content-type'] = 'application/XML'
     client = getattr(session, method.lower())
 
@@ -69,6 +70,7 @@ class GovDelivery(object):
         self.session = authenticated_session(username, password)
         self.account_code = account_code or os.environ['GOVDELIVERY_ACCOUNT_CODE']
 
+    # TODO: Replace this function with f-strings.
     def translate_path(self, path_template, **kwargs):
         context = kwargs
         context['account_code'] = self.account_code
@@ -91,11 +93,12 @@ class GovDelivery(object):
 
     def get_all_topics(self):
         path = self.translate_path('/api/account/$account_code/topics.xml')
-        return self.call_api(path, "get", response_parser=xml_response_parsers.listed_category_xml_as_dict)
+        return self.call_api(path, "get", response_parser=xml_response_parsers.topic_xml_as_dict)
 
+    # TODO: Rename method to be more precise
     def get_visible_topics(self):
         path = self.translate_path('/api/account/$account_code/topics.xml')
-        return self.call_api(path, "get", response_parser=xml_response_parsers.visible_category_xml_as_dict)
+        return self.call_api(path, "get", response_parser=xml_response_parsers.listed_topic_xml_as_dict)
 
     def get_subscriber_categories(self, contact_details):
         subscriber_id = base64.b64encode(contact_details)
@@ -112,6 +115,7 @@ class GovDelivery(object):
         subscriber_id = base64.b64encode(contact_details)
         path = self.translate_path('/api/account/$account_code/subscribers/$subscriber_id/topics.xml', subscriber_id=subscriber_id)
         return self.call_api(path, response_parser=xml_response_parsers.subscriber_topics_as_list)
+        # return self.call_api(path)
 
     def set_subscriber_topics(self, contact_details, topic_codes, contact_method="email", send_notifications=False):
         topic_code_set = set(topic_codes)

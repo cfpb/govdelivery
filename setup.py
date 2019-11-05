@@ -5,6 +5,8 @@ long_description = open('README.md', 'r').read()
 
 install_requires = ['requests==2.22.0']
 
+testing_extras = ['responses==0.10.6']
+
 setup(
     name='govdelivery',
     url='https://github.com/cfpb/govdelivery',
@@ -18,6 +20,9 @@ setup(
     include_package_data=True,
     packages=find_packages(),
     install_requires=install_requires,
+    extras_require={
+        'testing': testing_extras,
+    },
     classifiers=[
         'Development Status :: 4 - Beta',
         'Intended Audience :: Developers',
