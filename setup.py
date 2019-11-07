@@ -5,7 +5,10 @@ long_description = open('README.md', 'r').read()
 
 install_requires = ['requests==2.22.0']
 
-testing_extras = ['responses==0.10.6']
+testing_extras = [
+    'mock==2.0.0',
+    'responses==0.10.6',
+]
 
 setup(
     name='govdelivery',

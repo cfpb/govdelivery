@@ -11,12 +11,14 @@ from govdelivery import xml_payloads
 from govdelivery import xml_response_parsers
 
 
+GOVDELIVERY_BASE_URL = 'https://api.govdelivery.com'
+
+
 def get_full_url_to_call(path, base_url=None):
-    base_url = base_url or os.environ.get(
-        'GOVDELIVERY_BASE_URL',
-        'https://api.govdelivery.com'
+    return urlparse.urljoin(
+        base_url or os.getenv('GOVDELIVERY_BASE_URL') or GOVDELIVERY_BASE_URL,
+        path
     )
-    return urlparse.urljoin(base_url, path)
 
 
 def authenticated_session(username=None, password=None):

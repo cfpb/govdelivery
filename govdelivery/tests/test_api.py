@@ -1,8 +1,8 @@
 import base64
-import os
 import unittest
 
 import responses
+from mock import patch
 from requests.models import Response
 
 from govdelivery.api import (
@@ -13,37 +13,28 @@ from govdelivery.xml_response_parsers import topic_xml_as_dict
 
 
 class TestClientUtilities(unittest.TestCase):
-    def test_get_full_url_to_call(self):
-        # Store and unset existing GOVDELIVERY_BASE_URL env var, if it is set.
-        if os.environ.get('GOVDELIVERY_BASE_URL'):
-            current_govdelivery_base = os.environ['GOVDELIVERY_BASE_URL']
-            del os.environ['GOVDELIVERY_BASE_URL']
-
-        url_to_call = get_full_url_to_call('/path')
-        self.assertEqual(url_to_call, 'https://api.govdelivery.com/path')
-
-        url_to_call = get_full_url_to_call(
-            '/path',
-            'https://passed-base.govdelivery.com'
-        )
+    @patch('os.getenv', return_value=None)
+    def test_get_full_url_to_call_with_default_base_url(self, _):
         self.assertEqual(
-            url_to_call,
-            'https://passed-base.govdelivery.com/path'
+            get_full_url_to_call('/foo/bar'),
+            'https://api.govdelivery.com/foo/bar'
         )
 
-        os.environ['GOVDELIVERY_BASE_URL'] = 'https://env-base.govdelivery.com'
-        url_to_call = get_full_url_to_call('/path')
-        self.assertEqual(url_to_call, 'https://env-base.govdelivery.com/path')
+    @patch('os.getenv', return_value='https://envvar.govdelivery.com')
+    def test_get_full_url_to_call_with_env_var_defined_base_url(self, _):
+        self.assertEqual(
+            get_full_url_to_call('/foo/bar'),
+            'https://envvar.govdelivery.com/foo/bar'
+        )
 
-        try:
-            # Was current_govdelivery_base assigned earlier?
-            current_govdelivery_base
-        except NameError:
-            # No: delete the temporary GOVDELIVERY_BASE_URL env var.
-            del os.environ['GOVDELIVERY_BASE_URL']
-        else:
-            # Yes: Reassign GOVDELIVERY_BASE_URL to what it started out as.
-            os.environ['GOVDELIVERY_BASE_URL'] = current_govdelivery_base
+    def test_get_full_url_to_call_with_passed_base_url(self):
+        self.assertEqual(
+            get_full_url_to_call(
+                '/foo/bar',
+                base_url='https://passed.govdelivery.com'
+            ),
+            'https://passed.govdelivery.com/foo/bar'
+        )
 
     def test_authenticated_session(self):
         session = authenticated_session('username', 'password')
@@ -57,8 +48,11 @@ class TestClientUtilities(unittest.TestCase):
 
 class TestGovDelivery(unittest.TestCase):
     def setUp(self):
-        self.gd = GovDelivery()
-        self.gd.account_code = 'XYZ'
+        self.gd = GovDelivery(
+            username='abc@xyz.123',
+            password='mycatsname',
+            account_code='XYZ'
+        )
 
     def test_translate_path(self):
         path = self.gd.translate_path('/api/account/$account_code/topics.xml')
