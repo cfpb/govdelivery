@@ -117,7 +117,6 @@ class GovDelivery(object):
         subscriber_id = base64.b64encode(contact_details)
         path = self.translate_path('/api/account/$account_code/subscribers/$subscriber_id/topics.xml', subscriber_id=subscriber_id)
         return self.call_api(path, response_parser=xml_response_parsers.subscriber_topics_as_list)
-        # return self.call_api(path)
 
     def set_subscriber_topics(self, contact_details, topic_codes, contact_method="email", send_notifications=False):
         topic_code_set = set(topic_codes)
