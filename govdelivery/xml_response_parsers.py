@@ -41,10 +41,7 @@ def subscriber_responses_as_list_of_dicts(unparsed_xml):
         question_id = response_tag.find('question-id').text
 
         answer_id = answer_id_tag.text
-        answer_id_is_null = (
-            'nil' in answer_id_tag.attrib
-            and answer_id_tag.attrib['nil'] == 'true'
-        )
+        answer_id_is_null = answer_id_tag.attrib.get('nil') == 'true'
 
         answer_text = response_tag.find('question-answer-text').text
 
