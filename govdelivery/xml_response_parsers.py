@@ -52,7 +52,7 @@ def subscriber_responses_as_list_of_dicts(unparsed_xml):
             'question_id': question_id,
             'answer_id': answer_id,
             'answer_text': answer_text,
-            'answer_id_is_null': answer_id_is_null
+            'answer_id_is_null': answer_id_is_null,
         }
 
         responses.append(response_dict)
