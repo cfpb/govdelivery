@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<topics type="array">
+    <topic>
+        <name>Test Topic</name>
+        <short-name>Test Topic</short-name>
+        <code>XYZ_999</code>
+        <description nil="true"/>
+        <wireless-enabled type="boolean">false</wireless-enabled>
+        <visibility>Listed</visibility>
+        <link rel="self" href="/api/account/XYZ/topics/XYZ_999"/>
+        <topic-uri>/api/account/XYZ/topics/XYZ_999.xml</topic-uri>
+    </topic>
+    <topic>
+        <name>Test Unlisted Topic</name>
+        <short-name>Test Unlisted Topic</short-name>
+        <code>XYZ_998</code>
+        <description nil="true"/>
+        <wireless-enabled type="boolean">false</wireless-enabled>
+        <visibility>Unlisted</visibility>
+        <link rel="self" href="/api/account/XYZ/topics/XYZ_998"/>
+        <topic-uri>/api/account/XYZ/topics/XYZ_998.xml</topic-uri>
+    </topic>
+</topics>

@@ -1,22 +1,45 @@
 import unittest
-import codecs
 
-from os import path
+from govdelivery.tests.utils import load_data
+from govdelivery.xml_response_parsers import (
+    topic_xml_as_dict, listed_topic_xml_as_dict,
+    subscriber_responses_as_list_of_dicts, subscriber_topics_as_list
+)
 
-from govdelivery import xml_response_parsers
 
-testdata_dir = path.join(path.dirname(__file__), 'testdata')
+class TestTopicListingParsers(unittest.TestCase):
+    def test_topic_xml_as_dict(self):
+        response_xml = load_data('list_all_topics.xml')
+        parsed = topic_xml_as_dict(response_xml)
+        self.assertEqual(
+            parsed,
+            {'XYZ_998': 'Test Unlisted Topic', 'XYZ_999': 'Test Topic'}
+        )
 
-def load_data(filename):
-    full_path = path.join(testdata_dir, filename)
-    f = codecs.open(full_path, encoding="utf8")
-    return f.read()
+    def test_listed_topic_xml_as_dict(self):
+        response_xml = load_data('list_all_topics.xml')
+        parsed = listed_topic_xml_as_dict(response_xml)
+        self.assertEqual(
+            parsed,
+            {'XYZ_999': 'Test Topic'}
+        )
+
+
+class TestSubscriberTopicsParser(unittest.TestCase):
+    def test_subscriber_topics_as_list(self):
+        response_xml = load_data('list_subscriber_topics.xml')
+        parsed = subscriber_topics_as_list(response_xml)
+        self.assertEqual(
+            parsed,
+            ['XYZ_999']
+        )
+
 
 class TestQuestionResponseParser(unittest.TestCase):
-
     def test_parse_response(self):
         response_xml = load_data('question_responses.xml')
-        parsed = xml_response_parsers.subscriber_responses_as_list_of_dicts(response_xml)
+        parsed = subscriber_responses_as_list_of_dicts(response_xml)
         r1, r2, r3 = parsed
-        assert('question_id' in r1)
-        assert(r1['question_id'] == 'MTAwNDk=')
+
+        self.assertIn('question_id', r1)
+        self.assertEqual(r1['question_id'], 'MTAwNDk=')

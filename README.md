@@ -23,17 +23,8 @@ We are in the process of adding Python 3 support.
 ## Running the tests
 
 1. Create or activate a virtualenv for working on govdelivery.
-1. `pip install -e .`
-1. `cd govdelivery/`
-1. Export the following environment variables corresponding to your account on
-   the GovDelivery staging server:
-   - `GOVDELIVERY_USER`
-   - `GOVDELIVERY_PASSWORD`
-   - `GOVDELIVERY_ACCOUNT_CODE`
-   - `GOVDELIVERY_BASE_URL`
-1. `python -m unittest tests.test_api` and
-   `python -m unittest tests.test_xml_response_parsers`
-
+1. `pip install -e .[testing]`
+1. `python -m unittest govdelivery.tests`
 
 
 ## Open source licensing info
