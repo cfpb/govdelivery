@@ -24,7 +24,7 @@ We are in the process of adding Python 3 support.
 
 1. Create or activate a virtualenv for working on govdelivery.
 1. `pip install -e .[testing]`
-1. `python -m unittest govdelivery.tests`
+1. `python -m unittest discover`
 
 
 ## Open source licensing info

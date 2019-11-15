@@ -6,6 +6,7 @@ long_description = open('README.md', 'r').read()
 install_requires = ['requests==2.22.0']
 
 testing_extras = [
+    'coverage==4.5.4',
     'mock==2.0.0',
     'responses==0.10.6',
 ]
@@ -26,6 +27,7 @@ setup(
     extras_require={
         'testing': testing_extras,
     },
+    test_suite='govdelivery.tests',
     classifiers=[
         'Development Status :: 4 - Beta',
         'Intended Audience :: Developers',
