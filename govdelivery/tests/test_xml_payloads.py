@@ -1,8 +1,10 @@
 import unittest
 
 from govdelivery.xml_payloads import (
-    create_subscriber, format_phone, set_subscriber_categories,
-    set_subscriber_topics
+    create_subscriber,
+    format_phone,
+    set_subscriber_categories,
+    set_subscriber_topics,
 )
 
 

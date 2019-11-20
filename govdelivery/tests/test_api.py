@@ -3,7 +3,9 @@ import unittest
 
 import responses
 from govdelivery.api import (
-    GovDelivery, authenticated_session, get_full_url_to_call
+    GovDelivery,
+    authenticated_session,
+    get_full_url_to_call,
 )
 from govdelivery.tests.utils import load_data
 from govdelivery.xml_response_parsers import topic_xml_as_dict
