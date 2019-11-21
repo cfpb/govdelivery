@@ -1,11 +1,11 @@
+import six
+
 import base64
 import os
-import six
 from string import Template
 
 import requests
 from govdelivery import xml_payloads, xml_response_parsers
-
 
 if six.PY2:
     import urlparse  # pragma: no cover

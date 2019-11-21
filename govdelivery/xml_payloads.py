@@ -1,5 +1,6 @@
-import re
 import six
+
+import re
 import warnings
 from string import Template
 
