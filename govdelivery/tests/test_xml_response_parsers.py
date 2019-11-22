@@ -2,8 +2,10 @@ import unittest
 
 from govdelivery.tests.utils import load_data
 from govdelivery.xml_response_parsers import (
-    topic_xml_as_dict, listed_topic_xml_as_dict,
-    subscriber_responses_as_list_of_dicts, subscriber_topics_as_list
+    listed_topic_xml_as_dict,
+    subscriber_responses_as_list_of_dicts,
+    subscriber_topics_as_list,
+    topic_xml_as_dict,
 )
 
 

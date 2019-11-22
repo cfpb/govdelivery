@@ -2,14 +2,15 @@ import base64
 import unittest
 
 import responses
-from mock import patch
-from requests.models import Response
-
 from govdelivery.api import (
-    authenticated_session, get_full_url_to_call, GovDelivery
+    GovDelivery,
+    authenticated_session,
+    get_full_url_to_call,
 )
 from govdelivery.tests.utils import load_data
 from govdelivery.xml_response_parsers import topic_xml_as_dict
+from mock import patch
+from requests.models import Response
 
 
 class TestClientUtilities(unittest.TestCase):
@@ -122,7 +123,8 @@ class TestGovDelivery(unittest.TestCase):
 
     @responses.activate
     def test_get_subscriber_topics(self):
-        subscriber_id = base64.b64encode('test@example.com')
+        email = 'test@example.com'
+        subscriber_id = base64.b64encode(email.encode('utf-8'))
         path = self.gd.translate_path(
             '/api/account/$account_code/subscribers/$subscriber_id/topics.xml',
             subscriber_id=subscriber_id

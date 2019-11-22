@@ -1,7 +1,6 @@
 import codecs
 from os import path
 
-
 testdata_dir = path.join(path.dirname(__file__), 'test_api_responses')
 
 

@@ -11,8 +11,7 @@ https://developer.govdelivery.com/api/comm_cloud_v1/Default.htm
 
 ## Status
 
-Currently only works with Python 2.7.
-We are in the process of adding Python 3 support.
+Officially supports both Python 2.7 and Python 3.6.
 
 
 ## Installation
@@ -22,9 +21,19 @@ We are in the process of adding Python 3 support.
 
 ## Running the tests
 
-1. Create or activate a virtualenv for working on govdelivery.
-1. `pip install -e .[testing]`
-1. `python -m unittest govdelivery.tests`
+To lint the code and execute the unit tests,
+we recommend using [tox](https://tox.readthedocs.io/).
+
+1. Install tox in a virtualenv or in your global Python environment by running
+   `pip install tox`.
+
+   Alternately, we also like using [pipx](https://github.com/pipxproject/pipx)
+   for installing and running system-wide tools like tox.
+1. Run all the tests in one go with `tox`.
+1. If you want to run just the linting tools (flake8 and isort), you can run
+   `tox -e lint`.
+1. If you want to run tests in just Python 2 or just Python 3, you can run
+   `tox -e py27` or `tox -e py36`.
 
 
 ## Open source licensing info
