@@ -1,17 +1,11 @@
-import six
-
 import base64
 import os
+import urllib.parse as urlparse
 from string import Template
 
 import requests
+
 from govdelivery import xml_payloads, xml_response_parsers
-
-if six.PY2:
-    import urlparse  # pragma: no cover
-else:
-    import urllib.parse as urlparse  # pragma: no cover
-
 
 GOVDELIVERY_BASE_URL = 'https://api.govdelivery.com'
 
