@@ -3,12 +3,11 @@ from setuptools import find_packages, setup
 
 long_description = open('README.md', 'r').read()
 
-install_requires = ['requests==2.22.0']
+install_requires = ['requests>=2.22.0,<3']
 
 testing_extras = [
-    'coverage==4.5.4',
-    'mock==2.0.0',
-    'responses==0.10.6',
+    'coverage',
+    'responses',
 ]
 
 setup(
@@ -20,7 +19,7 @@ setup(
     long_description=long_description,
     long_description_content_type='text/markdown',
     license='CC0',
-    version='1.3',
+    version='1.4.0',
     include_package_data=True,
     packages=find_packages(),
     install_requires=install_requires,
