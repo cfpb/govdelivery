@@ -1,13 +1,9 @@
-import six
-
 import re
 import warnings
 from string import Template
 
 
 def format_phone(phone):
-    if six.PY2:
-        warnings.simplefilter('default')  # pragma: no cover
     warnings.warn(
         'The phone number formatter will be deprecated in a future release of '
         'govdelivery. Going forward, please ensure that your application '

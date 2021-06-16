@@ -1,7 +1,10 @@
 import base64
 import unittest
+from unittest.mock import patch
 
 import responses
+from requests.models import Response
+
 from govdelivery.api import (
     GovDelivery,
     authenticated_session,
@@ -9,8 +12,6 @@ from govdelivery.api import (
 )
 from govdelivery.tests.utils import load_data
 from govdelivery.xml_response_parsers import topic_xml_as_dict
-from mock import patch
-from requests.models import Response
 
 
 class TestClientUtilities(unittest.TestCase):
