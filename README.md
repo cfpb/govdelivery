@@ -11,7 +11,7 @@ https://developer.govdelivery.com/api/comm_cloud_v1/Default.htm
 
 ## Status
 
-Officially supports both Python 2.7 and Python 3.6.
+Officially supports Python 3.10 and above.
 
 
 ## Installation
@@ -32,11 +32,21 @@ we recommend using [tox](https://tox.readthedocs.io/).
 1. Run all the tests in one go with `tox`.
 1. If you want to run just the linting tools (flake8 and isort), you can run
    `tox -e lint`.
-1. If you want to run tests in just Python 2 or just Python 3, you can run
-   `tox -e py27` or `tox -e py36`.
+1. If you want to run tests in a specific Python version, you can run
+   `tox -e py310` or `tox -e py313`.
 
 
 ## Changelog
+
+### Unreleased
+
+- Drop support for Python < 3.10
+- Modernize PyPI release publishing
+
+### 1.4.0 - 2021-06-21
+
+- Drop Python 2 support
+- Pin dependency on requests to a range
 
 ### 1.3 – 2019-11-25
 
