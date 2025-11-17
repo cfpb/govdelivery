@@ -38,7 +38,7 @@ we recommend using [tox](https://tox.readthedocs.io/).
 
 ## Changelog
 
-### Unreleased
+### 1.5 - 2025-11-17
 
 - Drop support for Python < 3.10
 - Modernize PyPI release publishing
